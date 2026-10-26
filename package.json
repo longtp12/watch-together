@@ -9,12 +9,25 @@
     "watch": "node build.mjs --watch",
     "emulators": "firebase emulators:start --only auth,database --project demo-watch-together",
     "deploy:rules": "firebase deploy --only database",
-    "package": "node package.mjs"
+    "package": "node package.mjs",
+    "dev:web": "vite web",
+    "build:web": "tsc -p web && vite build web",
+    "preview:web": "vite preview web",
+    "test:web": "node test/web-e2e.mjs"
   },
   "dependencies": {
-    "firebase": "^11.10.0"
+    "firebase": "^11.10.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "esbuild": "^0.24.2"
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/youtube": "^0.1.2",
+    "@vitejs/plugin-react": "^4.7.0",
+    "esbuild": "^0.24.2",
+    "typescript": "~5.9.3",
+    "vite": "^6.4.5"
   }
 }

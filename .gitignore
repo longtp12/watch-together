@@ -7,3 +7,5 @@ database-debug.log
 firebase-debug.log
 release/
 src/firebase-config.js
+web/dist/
+.env*.local

@@ -4,7 +4,9 @@
       "$code": {
         ".read": "auth != null",
         ".write": "auth != null && !data.exists() && $code.matches(/^[A-Z0-9]{6}$/)",
-        "url": { ".validate": "newData.isString() && newData.val().length < 500" },
+        "url": {
+          ".validate": "newData.isString() && newData.val().length < 500"
+        },
         "playback": {
           ".write": "auth != null && root.child('rooms/' + $code + '/members/' + auth.uid).exists()",
           ".validate": "newData.hasChildren(['paused', 'time', 'updatedAt', 'by']) && newData.child('paused').isBoolean() && newData.child('time').isNumber() && newData.child('by').val() === auth.uid"
@@ -18,6 +20,32 @@
         "chat": {
           "$msg": {
             ".write": "auth != null && !data.exists() && root.child('rooms/' + $code + '/members/' + auth.uid).exists()",
+            ".validate": "newData.child('uid').val() === auth.uid && newData.child('text').isString() && newData.child('text').val().length <= 500"
+          }
+        }
+      }
+    },
+    "ytRooms": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && !data.exists() && $code.matches(/^[A-Z0-9]{6}$/)",
+        "videoId": {
+          ".write": "auth != null && root.child('ytRooms/' + $code + '/members/' + auth.uid).exists()",
+          ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{11}$/)"
+        },
+        "playback": {
+          ".write": "auth != null && root.child('ytRooms/' + $code + '/members/' + auth.uid).exists()",
+          ".validate": "newData.hasChildren(['paused', 'time', 'updatedAt', 'by']) && newData.child('paused').isBoolean() && newData.child('time').isNumber() && newData.child('by').val() === auth.uid"
+        },
+        "members": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid",
+            ".validate": "!newData.exists() || newData.child('name').isString() && newData.child('name').val().length <= 30"
+          }
+        },
+        "chat": {
+          "$msg": {
+            ".write": "auth != null && !data.exists() && root.child('ytRooms/' + $code + '/members/' + auth.uid).exists()",
             ".validate": "newData.child('uid').val() === auth.uid && newData.child('text').isString() && newData.child('text').val().length <= 500"
           }
         }
