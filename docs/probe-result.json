@@ -1,0 +1,44 @@
+[
+  {
+    "at": "4:08:42 PM",
+    "frameId": 331,
+    "iframes": [],
+    "isTopFrame": false,
+    "media": [
+      "https://stream.googleapiscdn.com/playlist/ce8474c1f0c6705e221cd60c92319fbc4b4bbfb8d3508e2a53ec2c9a0ced6d06/playlist.m3u8?token=<đã lược bỏ>"
+    ],
+    "playerHints": ["JW Player"],
+    "url": "https://stream.googleapiscdn.com/player/ce8474c1f0c6705e221cd60c92319fbc4b4bbfb8d3508e2a53ec2c9a0ced6d06?nextName=02&nextUrl=https%3A%2F%2Fanimevietsub.sale%2Fphim%2Fkoori-no-jouheki-2nd-season-a6093%2Ftap-02-116021.html",
+    "videos": [
+      {
+        "currentSrc": "blob:https://stream.googleapiscdn.com/d0b6050a-69da-4cec-a8ce-bd8b5cc2d0a1",
+        "duration": 1546,
+        "hidden": false,
+        "inShadowRoot": false,
+        "path": "body > div#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video.jw-video.jw-reset",
+        "paused": false,
+        "readyState": 4,
+        "size": "786x435",
+        "src": "blob:https://stream.googleapiscdn.com/d0b6050a-69da-4cec-a8ce-bd8b5cc2d0a1"
+      }
+    ]
+  },
+  {
+    "at": "4:08:33 PM",
+    "frameId": 0,
+    "iframes": [
+      {
+        "sandbox": null,
+        "size": "786x435",
+        "src": "https://stream.googleapiscdn.com/player/ce8474c1f0c6705e221cd60c92319fbc4b4bbfb8d3508e2a53ec2c9a0ced6d06?nextName=02&nextUrl=https%3A%2F%2Fanimevietsub.sale%2Fphim%2Fkoori-no-jouheki-2nd-season-a6093%2Ftap-02-116021.html"
+      }
+    ],
+    "isTopFrame": true,
+    "media": [],
+    "playerHints": [],
+    "url": "https://animevietsub.sale/phim/koori-no-jouheki-2nd-season-a6093/115958.html",
+    "videos": []
+  },
+  { "at": "4:08:31 PM", "frameId": 332, "iframes": [], "isTopFrame": false, "media": [], "playerHints": [], "url": "about:blank", "videos": [] },
+  { "at": "4:08:31 PM", "frameId": 333, "iframes": [], "isTopFrame": false, "media": [], "playerHints": [], "url": "about:blank", "videos": [] }
+]

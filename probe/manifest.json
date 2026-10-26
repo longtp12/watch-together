@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Video Probe (Watch Together)",
+  "version": "1.0.0",
+  "description": "Tìm thẻ video trong mọi frame của trang để biết trình phát nằm ở đâu, không cần mở DevTools.",
+  "permissions": ["storage", "webNavigation"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["probe.js"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true,
+      "run_at": "document_start"
+    }
+  ],
+  "action": { "default_popup": "popup.html", "default_title": "Video Probe" }
+}

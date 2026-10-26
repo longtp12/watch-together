@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>Watch Together</h1>
+
+  <section id="lobby" hidden>
+    <label>Tên của bạn
+      <input id="name" maxlength="30" placeholder="Ví dụ: Long">
+    </label>
+    <button id="create" class="primary">Tạo phòng cho tập đang mở</button>
+    <div class="or">hoặc</div>
+    <div class="row">
+      <input id="code" maxlength="6" placeholder="Mã phòng" autocomplete="off">
+      <button id="join">Vào phòng</button>
+    </div>
+  </section>
+
+  <section id="room" hidden>
+    <div class="code-row">
+      Phòng <b id="room-code"></b>
+      <button id="copy" class="small">Copy mã</button>
+    </div>
+    <div class="row">
+      <button id="sync"></button>
+      <button id="resync" class="blue">Resync</button>
+    </div>
+    <p class="hint">Bật đồng bộ khi phim thật đang chạy (đã qua quảng cáo). Bị quảng cáo làm lệch thì bấm Resync.</p>
+    <h2>Trong phòng</h2>
+    <ul id="members"></ul>
+    <button id="leave" class="danger">Rời phòng</button>
+  </section>
+
+  <p id="error" class="error" hidden></p>
+  <script src="dist/popup.js"></script>
+</body>
+</html>

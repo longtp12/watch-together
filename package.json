@@ -1,0 +1,20 @@
+{
+  "name": "watch-together",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome extension xem phim chung, đồng bộ play/pause/tua qua Firebase Realtime Database",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "emulators": "firebase emulators:start --only auth,database --project demo-watch-together",
+    "deploy:rules": "firebase deploy --only database",
+    "package": "node package.mjs"
+  },
+  "dependencies": {
+    "firebase": "^11.10.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2"
+  }
+}

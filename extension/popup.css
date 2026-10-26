@@ -1,0 +1,22 @@
+body { width: 300px; margin: 0; padding: 12px 14px; font: 13px/1.4 system-ui, sans-serif; color: #1a1a1a; }
+h1 { font-size: 16px; margin: 0 0 10px; }
+h2 { font-size: 13px; margin: 12px 0 4px; }
+label { display: grid; gap: 4px; margin-bottom: 8px; }
+input { border: 1px solid #ccc; border-radius: 8px; padding: 7px 8px; font: inherit; }
+button { border: 0; border-radius: 8px; padding: 8px 10px; font: 600 13px system-ui, sans-serif; cursor: pointer; background: #e5e5ea; }
+button:disabled { opacity: .6; cursor: default; }
+button.primary { width: 100%; background: #7c3aed; color: #fff; }
+button.blue { background: #2563eb; color: #fff; }
+button.danger { width: 100%; margin-top: 10px; background: #fdecec; color: #b42318; }
+button.small { padding: 3px 8px; font-size: 12px; }
+button.on { background: #1f9d55; color: #fff; }
+.row { display: flex; gap: 6px; }
+.row input, .row button { flex: 1; min-width: 0; }
+#code { text-transform: uppercase; letter-spacing: 2px; }
+.or { text-align: center; color: #888; margin: 8px 0; }
+.code-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.code-row b { font-size: 16px; letter-spacing: 2px; flex: 1; }
+.hint { color: #666; font-size: 12px; margin: 8px 0 0; }
+ul { margin: 0; padding-left: 18px; }
+.off { color: #888; }
+.error { color: #b42318; background: #fdecec; border-radius: 8px; padding: 6px 8px; }

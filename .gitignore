@@ -1,0 +1,9 @@
+node_modules/
+extension/dist/
+test/output/
+*.log
+test/site/media/
+database-debug.log
+firebase-debug.log
+release/
+src/firebase-config.js

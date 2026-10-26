@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cài Watch Together</title>
+<style>
+  body { max-width: 640px; margin: 32px auto; padding: 0 16px; font: 16px/1.6 system-ui, sans-serif; color: #1a1a1a; }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  h2 { font-size: 18px; margin-top: 28px; }
+  .sub { color: #666; margin-top: 0; }
+  ol li { margin-bottom: 10px; }
+  b.ui { background: #f1ecfe; color: #5b21b6; padding: 1px 6px; border-radius: 6px; }
+  code { background: #f2f2f2; padding: 1px 6px; border-radius: 6px; }
+  .note { background: #fff8e1; border-radius: 10px; padding: 10px 14px; }
+</style>
+</head>
+<body>
+<h1>Cài Watch Together</h1>
+<p class="sub">Xem phim chung trên animevietsub: một người play, pause hay tua thì cả phòng làm theo. Dùng trên Google Chrome máy tính.</p>
+
+<h2>Cài đặt (khoảng 1 phút, chỉ làm một lần)</h2>
+<ol>
+  <li>Giải nén file zip vừa nhận. Bạn sẽ có thư mục <code>watch-together-v1.0.0</code>. Hãy để thư mục này ở chỗ cố định (ví dụ trong Documents), <b>đừng xoá</b>, vì Chrome chạy extension từ chính thư mục đó.</li>
+  <li>Mở Chrome, gõ <code>chrome://extensions</code> vào thanh địa chỉ rồi nhấn Enter.</li>
+  <li>Ở góc trên bên phải, bật công tắc <b class="ui">Chế độ dành cho nhà phát triển</b> (Developer mode).</li>
+  <li>Bấm nút <b class="ui">Tải tiện ích đã giải nén</b> (Load unpacked) vừa hiện ra ở góc trên bên trái.</li>
+  <li>Chọn thư mục <code>watch-together-v1.0.0</code> (thư mục có file <code>manifest.json</code> bên trong) rồi bấm <b class="ui">Chọn</b>.</li>
+  <li>Thẻ <b>Watch Together</b> hiện ra là xong. Bấm biểu tượng mảnh ghép trên thanh công cụ Chrome, rồi bấm hình ghim cạnh Watch Together để icon luôn hiện.</li>
+</ol>
+
+<h2>Xem chung</h2>
+<ol>
+  <li>Mọi người mở <b>cùng một tập</b> phim trên animevietsub.</li>
+  <li>Một người bấm icon Watch Together, nhập tên, bấm <b class="ui">Tạo phòng cho tập đang mở</b>, rồi bấm <b class="ui">Copy mã</b> và gửi mã 6 ký tự cho những người còn lại.</li>
+  <li>Những người còn lại bấm icon, nhập tên và mã phòng, bấm <b class="ui">Vào phòng</b>.</li>
+  <li>Xem hết quảng cáo. Khi phim thật đang chạy, bấm <b class="ui">Đồng bộ: TẮT</b> trên khung nhỏ ở góc phải dưới trang phim để chuyển sang <b>BẬT</b>.</li>
+  <li>Xong. Ai play, pause hay tua thì mọi người cùng làm theo. Có thể chat ở khung đó.</li>
+</ol>
+
+<h2>Khi gặp sự cố</h2>
+<ul>
+  <li><b>Bị quảng cáo làm lệch:</b> xem hết quảng cáo rồi bấm <b class="ui">Resync</b>.</li>
+  <li><b>Hiện nút "Bấm để đồng bộ" trên video:</b> bấm vào nó một lần (Chrome cần bạn bấm trước khi cho tự phát video).</li>
+  <li><b>Báo "Chưa thấy video":</b> bấm play trên trình phát trước, rồi bấm Bật lại.</li>
+  <li><b>Khung chat bị che khi xem toàn màn hình:</b> thoát toàn màn hình để chat.</li>
+</ul>
+
+<p class="note">Thỉnh thoảng Chrome sẽ hiện thông báo về extension ở chế độ nhà phát triển. Cứ bấm đóng, extension vẫn hoạt động. Khi có bản mới, xoá thẻ cũ trong <code>chrome://extensions</code> rồi làm lại các bước cài với thư mục mới.</p>
+</body>
+</html>

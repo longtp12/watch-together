@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font: 13px system-ui, sans-serif; width: 540px; margin: 12px; }
+    h1 { font-size: 15px; margin: 0 0 6px; }
+    .frame { border: 1px solid #ccc; border-radius: 6px; padding: 8px; margin-bottom: 8px; }
+    .frame.has-video { border-color: #1a7f37; background: #f0fff4; }
+    .url { word-break: break-all; font-family: monospace; font-size: 12px; }
+    .muted { color: #666; }
+    pre { white-space: pre-wrap; word-break: break-all; font-size: 11px; margin: 4px 0 0; }
+  </style>
+</head>
+<body>
+  <h1>Video Probe</h1>
+  <p class="muted">Mở trang phim (không bật F12), bấm play, đợi vài giây rồi mở popup này.</p>
+  <p><button id="refresh">Tải lại kết quả</button> <button id="copy">Copy JSON</button> <span id="status" class="muted"></span></p>
+  <div id="out"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
