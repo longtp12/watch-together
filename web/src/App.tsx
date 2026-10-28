@@ -3,6 +3,7 @@ import { signedIn } from './lib/firebase';
 import { leaveRoom } from './lib/room';
 import { Lobby } from './components/Lobby';
 import { Room } from './components/Room';
+import { StatusBars } from './components/StatusBars';
 
 export interface Session {
   code: string;
@@ -38,8 +39,16 @@ export function App() {
     setSession(null);
   };
 
-  if (session && uid) return <Room code={session.code} name={session.name} uid={uid} onLeave={leave} />;
-  return <Lobby uid={uid} invitedCode={codeFromHash()} startupError={error} onJoined={join} />;
+  return (
+    <>
+      <StatusBars />
+      {session && uid ? (
+        <Room code={session.code} name={session.name} uid={uid} onLeave={leave} />
+      ) : (
+        <Lobby uid={uid} invitedCode={codeFromHash()} startupError={error} onJoined={join} />
+      )}
+    </>
+  );
 }
 
 export function codeFromHash() {

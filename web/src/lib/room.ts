@@ -30,6 +30,14 @@ export function normalizeCode(input: string) {
   return input.trim().toUpperCase();
 }
 
+// Takes a room code or a whole invite link (…/#K7Q2XM) and returns the code, or null.
+export function extractRoomCode(input: string): string | null {
+  const text = input.trim();
+  const fromHash = /#([A-Za-z0-9]{6})(?![A-Za-z0-9])/.exec(text)?.[1];
+  const code = normalizeCode(fromHash ?? text);
+  return isRoomCode(code) ? code : null;
+}
+
 export function isRoomCode(code: string) {
   return /^[A-Z0-9]{6}$/.test(code);
 }
@@ -50,8 +58,8 @@ export async function createRoom(videoId: string, uid: string) {
 
 // Checks the room exists, then adds us to its members.
 export async function joinRoom(input: string, uid: string, name: string) {
-  const code = normalizeCode(input);
-  if (!isRoomCode(code)) throw new Error('Mã phòng gồm 6 ký tự.');
+  const code = extractRoomCode(input);
+  if (!code) throw new Error('Mã phòng gồm 6 ký tự, hoặc dán cả link mời.');
   if (!(await get(ref(db, `${roomPath(code)}/videoId`))).exists()) throw new Error(`Không tìm thấy phòng ${code}.`);
   await writeMember(code, uid, name);
   return code;

@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { signedIn } from '../lib/firebase';
-import { createRoom, joinRoom } from '../lib/room';
+import { createRoom, extractRoomCode, joinRoom } from '../lib/room';
 import { parseVideoId } from '../lib/youtube';
 import type { Session } from '../App';
+import { InstallButton } from './InstallButton';
 
 interface Props {
   uid: string | null;
@@ -97,16 +98,16 @@ export function Lobby({ uid, invitedCode, startupError, onJoined }: Props) {
         <h2>Vào phòng</h2>
         <input
           id="join-code"
-          maxLength={6}
-          placeholder="Mã phòng (6 ký tự)"
+          placeholder="Mã phòng hoặc link mời"
           autoCapitalize="characters"
           value={code}
-          onChange={e => setCode(e.target.value.toUpperCase())}
+          onChange={e => setCode(extractRoomCode(e.target.value) ?? e.target.value.toUpperCase())}
         />
         <button id="join" disabled={busy !== null} autoFocus={focus === 'join'}>
           {busy === 'join' ? 'Đang vào…' : 'Vào phòng'}
         </button>
       </form>
+      <InstallButton />
       {(error || startupError) && (
         <p id="lobby-error" className="error">
           {error || startupError}

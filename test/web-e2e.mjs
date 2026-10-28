@@ -18,7 +18,7 @@ const results = [];
 
 execFileSync('npx', ['vite', 'build', 'web', '--mode', 'emulator', '--logLevel', 'warn'], { cwd: root, stdio: 'inherit' });
 
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.webm': 'video/webm' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.webm': 'video/webm', '.webmanifest': 'application/manifest+json' };
 const server = http
   .createServer((req, res) => {
     const { pathname } = new URL(req.url, ORIGIN);
@@ -208,6 +208,48 @@ try {
   await A.page.press('#change-url', 'Enter');
   await sleep(2000);
   check('Video chặn nhúng báo lỗi', /không cho phép xem nhúng/.test(await text(B, '#notice')), await text(B, '#notice'));
+
+  // PWA: manifest, icons, service worker, offline start, install button, invite link in the code box.
+  const P = await open(null, 'P');
+  await P.page.goto(ORIGIN);
+  const manifest = await P.page.evaluate(async () => {
+    const href = document.querySelector('link[rel=manifest]')?.getAttribute('href');
+    const m = await (await fetch(href)).json();
+    const icons = await Promise.all(m.icons.map(async i => [i.src, (await fetch(i.src)).status]));
+    return { ...m, iconStatus: icons };
+  });
+  check('Manifest PWA', manifest.display === 'standalone' && manifest.start_url === '/' && manifest.icons.some(i => i.purpose === 'maskable'),
+    `${manifest.name}, ${manifest.display}`);
+  check('Icon PWA tải được', manifest.iconStatus.every(([, status]) => status === 200), manifest.iconStatus.map(([src, st]) => `${src}=${st}`).join(' '));
+  const swState = await P.page.evaluate(async () => {
+    const worker = (await navigator.serviceWorker.ready).active;
+    if (worker.state !== 'activated') await new Promise(r => worker.addEventListener('statechange', () => worker.state === 'activated' && r()));
+    return worker.state;
+  });
+  check('Service worker chạy', swState === 'activated', swState);
+
+  await P.page.evaluate(() => {
+    const event = new Event('beforeinstallprompt');
+    event.prompt = async () => {};
+    event.userChoice = Promise.resolve({ outcome: 'accepted' });
+    window.dispatchEvent(event);
+  });
+  const installShown = await P.page.locator('#install').isVisible();
+  await P.page.click('#install');
+  await sleep(300);
+  check('Nút Cài ứng dụng', installShown && !(await P.page.locator('#install').isVisible()));
+
+  await P.page.fill('#join-code', `https://watch-together.vercel.app/#${code.toLowerCase()}`);
+  check('Ô mã phòng nhận link mời', (await P.page.inputValue('#join-code')) === code, await P.page.inputValue('#join-code'));
+
+  await P.context.setOffline(true);
+  const offlinePage = await P.context.newPage();
+  await offlinePage.goto(ORIGIN);
+  const offlineLobby = await offlinePage.locator('#lobby').isVisible();
+  const offlineBar = await offlinePage.locator('#offline-bar').isVisible();
+  check('Mở khi mất mạng: vẫn thấy Sảnh và thanh báo', offlineLobby && offlineBar);
+  await P.context.setOffline(false);
+  await P.context.close();
 
   await A.context.close();
   await B.context.close();

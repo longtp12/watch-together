@@ -16,8 +16,19 @@ export function Room({ code, name, uid, onLeave }: Props) {
   const [copied, setCopied] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
+  // Phones get the system share sheet (Messenger, Zalo…); computers copy the link.
+  const canShare = typeof navigator.share === 'function' && window.matchMedia('(pointer: coarse)').matches;
+
   const copyLink = async () => {
     const link = `${location.origin}${location.pathname}#${code}`;
+    if (canShare) {
+      try {
+        await navigator.share({ title: 'Watch Together', text: `Vào xem chung phòng ${code}`, url: link });
+        return;
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return;
+      }
+    }
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
@@ -36,8 +47,8 @@ export function Room({ code, name, uid, onLeave }: Props) {
     <main id="room" className="room">
       <header className="bar">
         <b id="room-code">Phòng {code}</b>
-        <button id="copy-link" title="Copy link mời bạn bè" onClick={copyLink}>
-          {copied ? 'Đã copy' : 'Copy link mời'}
+        <button id="copy-link" title="Gửi link mời bạn bè" onClick={copyLink}>
+          {copied ? 'Đã copy' : canShare ? 'Chia sẻ' : 'Copy link mời'}
         </button>
         <span className="spacer" />
         <button id="leave" onClick={leave} disabled={leaving}>

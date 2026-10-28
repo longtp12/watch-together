@@ -6,6 +6,7 @@
 // machine), otherwise from src/firebase-config.js, the file the extension uses.
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -73,12 +74,44 @@ function firebaseConfig(override: FirebaseConfig | null, emulator: boolean): Plu
   };
 }
 
+// Installable app: manifest + a service worker that keeps the app files (HTML, JS, CSS, icons)
+// on the device. YouTube and Firebase always go to the network; the service worker never touches them.
+function pwa() {
+  return VitePWA({
+    registerType: 'prompt', // a new version waits for the user's "Tải lại" instead of reloading mid-video
+    injectRegister: false, // registered in src/lib/pwa.ts
+    includeAssets: ['icon.png', 'icons/apple-touch-icon.png'],
+    manifest: {
+      name: 'Watch Together',
+      short_name: 'Watch Together',
+      description: 'Xem YouTube cùng bạn bè: ai play, pause hay tua thì mọi người trong phòng làm theo.',
+      lang: 'vi',
+      start_url: '/',
+      scope: '/',
+      display: 'standalone',
+      theme_color: '#7c3aed',
+      background_color: '#0f0f13',
+      icons: [
+        { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+        { src: '/icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,webmanifest}'],
+      navigateFallback: '/index.html',
+      cleanupOutdatedCaches: true,
+    },
+    devOptions: { enabled: false },
+  });
+}
+
 export default defineConfig(({ mode }) => {
   const emulator = mode === 'emulator';
   const env = loadEnv(mode, webDir, 'FIREBASE_');
   return {
     root: webDir,
-    plugins: [react(), firebaseConfig(configOverride(env, emulator), emulator)],
+    plugins: [react(), firebaseConfig(configOverride(env, emulator), emulator), pwa()],
     build: {
       outDir: 'dist',
       emptyOutDir: true,

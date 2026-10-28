@@ -108,6 +108,16 @@ npm run preview:web  # xem thử bản đã build
 
 Config Firebase lấy từ `src/firebase-config.js` như extension. Muốn dùng config khác thì chép `web/.env.example` thành `web/.env.local` và điền các biến `FIREBASE_*` (file này không bị commit). Nhớ đưa `database.rules.json` mới lên Firebase (có thêm nhánh `ytRooms`), nếu không trang sẽ báo lỗi permission denied khi tạo phòng.
 
+### Cài thành ứng dụng (PWA)
+
+Webapp cài được như một ứng dụng: có icon riêng, mở trong cửa sổ riêng không có thanh địa chỉ.
+- **Chrome, Edge, Android**: bấm **Cài ứng dụng** ở Sảnh (hoặc biểu tượng cài trên thanh địa chỉ).
+- **iPhone**: mở bằng Safari, bấm Chia sẻ rồi chọn **Thêm vào MH chính**.
+
+Service worker chỉ lưu sẵn file của webapp (HTML, JS, CSS, icon). YouTube và Firebase luôn cần mạng, nên vẫn không xem offline được; mất mạng thì trang hiện thanh báo. Sau mỗi lần deploy, ứng dụng hiện thanh **Có bản mới** với nút Tải lại thay vì tự tải lại giữa lúc đang xem.
+
+PWA cần HTTPS (bản Vercel) hoặc `localhost`. Ở `npm run dev:web` service worker tắt; muốn thử PWA trên máy thì chạy `npm run build:web` rồi `npm run preview:web`.
+
 ### Deploy lên Vercel
 
 1. Đưa rules mới lên: **Realtime Database → Rules**, dán nội dung `database.rules.json`, bấm **Publish** (hoặc `npm run deploy:rules`).
@@ -149,11 +159,11 @@ npm install -D playwright && npx playwright install chromium
 node test/e2e.mjs                             # trên Linux không có màn hình: xvfb-run node test/e2e.mjs
 # kiểm tra một bản đã build sẵn (ví dụ thư mục giải nén từ zip, build với emulator):
 WT_EXTENSION=đường/dẫn/thư-mục node test/e2e.mjs
-# webapp YouTube (23 ca, trình phát YouTube giả chạy video thử, không cần mạng):
+# webapp YouTube (29 ca, trình phát YouTube giả chạy video thử, không cần mạng):
 npm run test:web
 ```
 
-Test webapp thay `https://www.youtube.com/iframe_api` bằng `test/web/fake-youtube-api.js` (cùng các hàm `YT.Player` mà app dùng, phát `movie.webm`) và kiểm tra: tạo phòng, link mời, mã sai, link sai, play, pause, tua khi dừng và khi đang phát, bấm liên tục, người vào sau, 2 tab cùng trình duyệt, rời phòng, drift, Resync, chat, đổi video, video chặn nhúng.
+Test webapp thay `https://www.youtube.com/iframe_api` bằng `test/web/fake-youtube-api.js` (cùng các hàm `YT.Player` mà app dùng, phát `movie.webm`) và kiểm tra: tạo phòng, link mời, mã sai, link sai, play, pause, tua khi dừng và khi đang phát, bấm liên tục, người vào sau, 2 tab cùng trình duyệt, rời phòng, drift, Resync, chat, đổi video, video chặn nhúng, và phần PWA (manifest, icon, service worker, nút Cài ứng dụng, dán link mời vào ô mã phòng, mở khi mất mạng).
 
 ## Giới hạn đã biết
 
